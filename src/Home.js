@@ -5,15 +5,33 @@ import Channels from "./components/Channels";
 import SingleMovie from "./components/SingleMovie";
 import MovieData from "./MovieData";
 
-const Home = () => {
+const Home = ({ searchTitle }) => {
+  const [filteredMovies, setFilteredMovies] = useState(MovieData);
+
+  useEffect(() => {
+    if (searchTitle) {
+      const lowerTitle = searchTitle.toLowerCase();
+      const temp = MovieData.filter(data => data.title.includes(lowerTitle));
+      setFilteredMovies(temp);
+    } else {
+      setFilteredMovies(MovieData);
+    }
+  }, [searchTitle]);
+
   return (
     <Container>
-      <Carasoule />
-      <Channels />
+      {!searchTitle && (
+        <>
+          <Carasoule />
+          <Channels />
+        </>
+      )}
 
-      <h5>Recommended For You</h5>
-      <MovieWrapper>
-        {MovieData.map(movie => (
+      <h5 style={{ paddingTop: `${searchTitle ? "45px" : " 0"}` }}>
+        {searchTitle ? "Search Results" : "Recommended For You"}
+      </h5>
+      <MovieWrapper id="movies">
+        {filteredMovies.map(movie => (
           <SingleMovie key={movie.id} {...movie} />
         ))}
       </MovieWrapper>
@@ -35,14 +53,25 @@ const Container = styled.section`
     text-shadow: 12px 12px 15px rgba(0, 0, 0, 0.3),
       5px 5px 10px rgba(0, 0, 0, 0.3);
   }
+
+  @media screen and (max-width: 768px) {
+    h5 {
+      margin-top: 2rem;
+      font-size: 0.95rem;
+    }
+  }
 `;
 
 const MovieWrapper = styled.section`
   margin: 1rem 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 2rem;
   padding: 0 5vw;
+
+  @media screen and (max-width: 500px) {
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 
 export default Home;

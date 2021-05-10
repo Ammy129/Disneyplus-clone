@@ -67,8 +67,20 @@ const Wrapper = styled.div`
   }
 
   @media screen and (max-width: 768px) {
+    padding: 0.8rem 0 1.8rem;
+
+    .swiper-container {
+      overflow: visible;
+      width: 95%;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      display: none;
+    }
     .swiper-slide {
-      height: 200px;
+      height: 120px;
+      border-radius: 8px;
       img {
         width: 100%;
         height: 100%;

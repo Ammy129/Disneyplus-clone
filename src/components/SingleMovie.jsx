@@ -13,7 +13,7 @@ const SingleMovie = ({ img, id }) => {
 };
 
 const Wrapper = styled.div`
-  max-width: 168px;
+  max-width: 190px;
   width: 100%;
   height: 228px;
   overflow: hidden;
@@ -35,6 +35,10 @@ const Wrapper = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  @media screen and (max-width: 500px) {
+    height: 178px;
   }
 `;
 

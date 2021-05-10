@@ -60,6 +60,11 @@ const Wrapper = styled.section`
   grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   gap: 1rem;
   padding: 0 5vw;
+  place-items: center;
+
+  @media screen and (max-width: 500px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 `;
 
 const Wrap = styled.div`
@@ -71,7 +76,7 @@ const Wrap = styled.div`
   cursor: pointer;
   transition: var(--trns);
   position: relative;
-  max-width: 160px;
+  max-width: 200px;
   overflow: hidden;
   margin: 0 auto;
 

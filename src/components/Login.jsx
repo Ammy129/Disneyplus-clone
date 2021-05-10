@@ -88,7 +88,7 @@ const Main = styled.div`
 const CTABtn = styled.button`
   width: 100%;
   padding: 1rem;
-  background: rgb(20, 24, 255);
+  background: rgb(70, 104, 255);
   border: none;
   outline: none;
   border-radius: 6px;
@@ -105,6 +105,7 @@ const CTABtn = styled.button`
 
   @media screen and (max-width: 768px) {
     font-size: 1rem;
+    padding: 0.6rem;
   }
 `;
 
@@ -112,11 +113,12 @@ const Description = styled.p`
   text-align: center;
   font-size: 14px;
   letter-spacing: 1.5px;
+  line-height: 1.6;
   margin-bottom: 1.5rem;
 `;
 
 const Form = styled.form`
-  width: 90%;
+  width: 80%;
   margin: 8.5rem auto;
   max-width: 500px;
   display: flex;
@@ -126,13 +128,21 @@ const Form = styled.form`
   input {
     padding: 1.3rem;
     font-size: 1.12rem;
-    border: 2px solid rgb(20, 24, 255);
+    border: none;
+    border-bottom: 2px solid white;
     border-radius: 10px;
-    background: rgba(0, 0, 0, 0.5);
+    background: none;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7);
 
     :focus {
-      border: 2px solid rgb(103, 106, 255);
+      border-bottom: 2px solid rgb(103, 106, 255);
+    }
+  }
+  @media screen and (max-width: 768px) {
+    input {
+      padding: 0.6rem 0.9rem;
+      border-radius: 2px;
+      font-size: 0.95rem;
     }
   }
 `;

@@ -14,6 +14,7 @@ function App() {
   };
 
   const [isLogin, setIsLogin] = useState(getUser());
+  const [searchTitle, setSearchTitle] = useState("");
 
   if (!isLogin) {
     return <Login setIsLogin={setIsLogin} />;
@@ -22,9 +23,15 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <Header setIsLogin={setIsLogin} />
+      <Header
+        setIsLogin={setIsLogin}
+        setSearchTitle={setSearchTitle}
+        searchTitle={searchTitle}
+      />
       <Switch>
-        <Route path="/" exact component={Home} />
+        <Route path="/" exact>
+          <Home searchTitle={searchTitle} />
+        </Route>
         <Route path="/detail/:id" exact component={Detail} />
 
         <Redirect to="/" />

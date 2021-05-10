@@ -1,53 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import MenuIcon from "@material-ui/icons/Menu";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+import { useLocation } from "react-router";
 
-const Header = ({ setIsLogin }) => {
+const Header = ({ setIsLogin, searchTitle, setSearchTitle }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [showBtn, setShowBtn] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+
+  const { pathname } = useLocation();
 
   const logout = () => {
     localStorage.removeItem("user");
     setIsLogin(false);
   };
+
+  useEffect(() => {
+    setShowMenu(false);
+    setShowSearch(false);
+    setShowBtn(false);
+    setSearchTitle("");
+  }, [pathname]);
+
   const user = JSON.parse(localStorage.getItem("user"));
-
-  const NavData = [
-    {
-      item: "Home",
-      img: "./images/home-icon.svg",
-    },
-    {
-      item: "Search",
-      img: "./images/search-icon.svg",
-    },
-    {
-      item: "Watchlist",
-      img: "./images/watchlist-icon.svg",
-    },
-    {
-      item: "originals",
-      img: "./images/original-icon.svg",
-    },
-    {
-      item: "movies",
-      img: "./images/movie-icon.svg",
-    },
-    {
-      item: "series",
-      img: "./images/series-icon.svg",
-    },
-  ];
-
-  const NavItems = ({ item, img }) => {
-    return (
-      <a href="#" className="nav-item">
-        <img src={img} alt="nav" />
-        <span>{item.toUpperCase()}</span>
-      </a>
-    );
-  };
 
   return (
     <Container>
@@ -56,6 +33,7 @@ const Header = ({ setIsLogin }) => {
         onClick={() => {
           setShowMenu(prev => (prev ? false : true));
           setShowBtn(false);
+          setShowSearch(false);
         }}
       />
 
@@ -63,12 +41,60 @@ const Header = ({ setIsLogin }) => {
         <Logo src="./images/logo.svg" />
       </Link>
       <Nav className={showMenu && "showMenu"}>
-        {NavData.map((data, index) => {
-          return <NavItems key={index} {...data} />;
-        })}
+        {!showSearch && (
+          <>
+            <Link className="nav-item" to="/">
+              <img src="./images/home-icon.svg" alt="nav" />
+              <span>HOME</span>
+            </Link>
+
+            <p className="nav-item" onClick={() => setShowSearch(true)}>
+              <img src="./images/search-icon.svg" alt="nav" />
+              <span>SEARCH</span>
+            </p>
+
+            <p className="nav-item">
+              <img src="./images/watchlist-icon.svg" alt="nav" />
+              <span>WATCHLISTS</span>
+            </p>
+
+            <a href="#movies" className="nav-item">
+              <img src="./images/original-icon.svg" alt="nav" />
+              <span>ORIGINALS</span>
+            </a>
+
+            <a href="#movies" className="nav-item">
+              <img src="./images/movie-icon.svg" alt="nav" />
+              <span>MOVIES</span>
+            </a>
+
+            <a href="#movies" className="nav-item">
+              <img src="./images/series-icon.svg" alt="nav" />
+              <span>SERIES</span>
+            </a>
+          </>
+        )}
+
+        {showSearch && (
+          <Form>
+            <KeyboardBackspaceIcon
+              className="back"
+              onClick={() => {
+                setShowSearch(false);
+                setSearchTitle("");
+                setShowMenu(false);
+              }}
+            />
+            <input
+              type="search"
+              placeholder="search movie"
+              onChange={e => setSearchTitle(e.target.value)}
+            />
+          </Form>
+        )}
       </Nav>
       <UserImg
-        src="./images/user.png"
+        src="./images/user.jfif"
         onClick={() => setShowBtn(prev => (prev ? false : true))}
       />
       <LogoutWrapper className={showBtn && "showBtn"}>
@@ -165,12 +191,13 @@ const Nav = styled.nav`
     top: 0;
     left: 0;
     width: 100%;
-    height: 60vh;
+    height: auto;
     background: #040b18;
     display: grid;
+    grid-row-gap: 4rem;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     place-items: center;
-    padding: 70px;
+    padding: 70px 40px 20px;
     z-index: 400;
     opacity: 0.5;
     transition: var(--trns);
@@ -225,6 +252,40 @@ const LogoutBtn = styled.button`
 
   :hover {
     background: rgb(73, 76, 255);
+  }
+`;
+
+const Form = styled.div`
+  width: 60vw;
+  position: relative;
+  .back {
+    position: absolute;
+    top: 0px;
+    width: 30px;
+    height: 100%;
+    left: 5px;
+    cursor: pointer;
+    :hover {
+      color: blue;
+    }
+  }
+
+  input {
+    padding: 0.8rem 1.3rem 0.8rem 3rem;
+    font-size: 1.12rem;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid rgb(20, 24, 255);
+    border-radius: 2px;
+    background: transparent;
+
+    :focus {
+      border-bottom: 2px solid rgb(103, 106, 255);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 90vw;
   }
 `;
 

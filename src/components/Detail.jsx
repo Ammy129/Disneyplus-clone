@@ -69,6 +69,13 @@ const Wrapper = styled.section`
       transform: scale(1.2);
     }
   }
+
+  @media screen and (max-width: 768px) {
+    .back {
+      top: 2.5%;
+      left: 5%;
+    }
+  }
 `;
 
 const BG = styled.div`
@@ -98,8 +105,13 @@ const Text = styled.div`
     text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.6),
       10px 10px 10px rgba(0, 0, 0, 0.4);
     line-height: 1;
+    text-transform: capitalize;
+  }
 
-    @media screen and (max-width: 768px) {
+  @media screen and (max-width: 768px) {
+    gap: 1rem;
+
+    h1 {
       font-size: 3rem;
     }
   }
@@ -111,11 +123,15 @@ const Buttons = styled.div`
   align-items: center;
   margin-top: 1rem;
   flex-wrap: wrap;
+
+  @media screen and (max-width: 768px) {
+    gap: 0.8rem;
+    margin-top: 0.5rem;
+  }
 `;
 
 const PlayBtn = styled.button`
-  height: 55px;
-  width: 130px;
+  padding: 0.55rem 1.5rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -132,6 +148,13 @@ const PlayBtn = styled.button`
   }
   img {
     width: 30px;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 0.5rem 1.3rem;
+    img {
+      width: 20px;
+    }
   }
 `;
 
@@ -162,6 +185,14 @@ const AddBtn = styled.button`
   :hover {
     transform: scale(1.2);
   }
+
+  @media screen and (max-width: 768px) {
+    height: 35px;
+    width: 35px;
+    img {
+      width: 22px;
+    }
+  }
 `;
 
 const GroupBtn = styled(AddBtn)`
@@ -173,8 +204,8 @@ const Description = styled.p`
   color: white;
   width: 35vw;
   text-shadow: 2px 2px 2px black, 4px 4px 4px black;
-  @media screen and (max-width: 700px) {
-    width: 55vw;
+  @media screen and (max-width: 786px) {
+    width: 95vw;
   }
 `;
 
